@@ -1,13 +1,30 @@
 import './App.css';
 //@ts-ignore
 import Input from './components/Input.jsx'
+import { Client, Account, ID } from 'appwrite';
 
 function App() {
+  const client = new Client();
+  client
+    .setEndpoint("https://cloud.appwrite.io/v1")
+    .setProject("643f8a2cb1139b2566be");
+  const account = new Account(client);
+
   const submitForm = (e: any) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const payload = Object.fromEntries(formData);
-    console.log(payload);
+
+    const promise = account.createEmailSession(`${payload.email}`, `${payload.password}`);
+    promise.then(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+    console.log(payload.email);
   }
   return (
     <form className='bg-gray-800 w-1/3 m-auto mt-10 p-10 rounded-md flex flex-col gap-6' onSubmit={submitForm}>
