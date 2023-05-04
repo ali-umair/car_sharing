@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Input(props) {
+export default function Input(props: any) {
     return (
         <div className='w-full'>
             <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-slate-200">{props.labelText}</label>
