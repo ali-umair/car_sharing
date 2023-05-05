@@ -12,11 +12,7 @@ export default function LoginForm(props: any) {
                 <img className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo" />
                 <span>Login with Google</span>
             </button>
-            <button onClick={props.check} className='text-white'>Check Login</button>
-            <button onClick={props.session} className='text-white'>Check Session Id</button>
-            <button onClick={props.logout} className='text-white'>Logout</button>
-
-
+            <button onClick={props.check} className='text-white'>Check</button>
         </form>
     )
 }
