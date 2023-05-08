@@ -12,7 +12,7 @@ function App() {
     .setEndpoint("https://cloud.appwrite.io/v1")
     .setProject("643f8a2cb1139b2566be");
   const account = new Account(client);
-  const [userLoggedIn, setUserLoggedIn] = useState("false");
+  const [userLoggedIn, setUserLoggedIn] = useState("true");
 
   const submitForm = (e: any) => {
     setUserLoggedIn("loading");
@@ -28,14 +28,10 @@ function App() {
       },
       (err) => {
         console.log(err);
+        setUserLoggedIn("false");
+        alert("Wrong Email or Password");
       }
     );
-  }
-
-  const check = async () => {
-    let log = await account.get();
-    console.log(log);
-    return log
   }
 
   // const session = () => {
@@ -68,25 +64,36 @@ function App() {
           const promise = account.deleteSession(session.$id);
           promise.then(function (response: any) {
             // console.log(response);
+            console.log(session.$id, " - terminated");
             const promise = account.listSessions();
             promise.then(function (response: any) {
-              console.log(response)
+              console.log("Sessions remaining: ", response);
             }, function (error) {
-              console.log(error, "All sessions terminated");
+              console.log("All sessions terminated");
               setUserLoggedIn("false");
             })
-          }, function (error) { })
+          }, function (error) {
+            alert("User session doesn't exit");
+            setUserLoggedIn("false");
+          })
         })
-      }, function (error) { }
+      }, function (error) {
+        console.log("User has no active sessions");
+        setUserLoggedIn("false");
+      }
     )
     // console.log(sessionsId);
   };
+
+  const OAuth = () => {
+    account.createOAuth2Session('google');
+  }
 
   let mainComponent: any;
   if (userLoggedIn == "true") mainComponent = <Authorized logout={logout} />
   else if (userLoggedIn == "loading") mainComponent = <Spinner />
   else if (userLoggedIn == "signingOut") mainComponent = <Spinner />
-  else mainComponent = <LoginForm submitForm={submitForm} check={check} />
+  else mainComponent = <LoginForm submitForm={submitForm} OAuth={OAuth} />
 
   return (
     mainComponent
