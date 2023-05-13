@@ -1,7 +1,8 @@
 import { useEffect } from "react";
-import Input from "../components/Input";
+import TextField from "../components/TextField";
 import Navbar from "../components/Navbar";
 import '../components/modal.css'
+import PopupForm from "../components/PopupForm";
 
 export default function Authorized(props: any) {
     let modal: any;
@@ -28,17 +29,7 @@ export default function Authorized(props: any) {
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
-                <form action="#" className="mt-5 flex flex-wrap gap-5 justify-center">
-                    <Input labelText="Input Field" type="dropdown" name="name" placeholder="placeholder" />
-                    <Input labelText="Input Field" type="dropdown" name="name" placeholder="placeholder" />
-                    <Input labelText="Input Field" type="dropdown" name="name" placeholder="placeholder" />
-                    <Input labelText="Input Field" type="dropdown" name="name" placeholder="placeholder" />
-                    <Input labelText="Input Field" type="dropdown" name="name" placeholder="placeholder" />
-                    <Input labelText="Input Field" type="dropdown" name="name" placeholder="placeholder" />
-                    <Input labelText="Input Field" type="dropdown" name="name" placeholder="placeholder" />
-                    <Input labelText="Input Field" type="dropdown" name="name" placeholder="placeholder" />
-                    <Input labelText="Input Field" type="dropdown" name="name" placeholder="placeholder" />
-                </form>
+                <PopupForm />
             </dialog>
         </div>
     )
