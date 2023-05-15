@@ -9,6 +9,12 @@ export default function Authorized(props: any) {
     useEffect(() => {
         modal = document.querySelector("#modal");
     });
+    const submitPopupForm = (e: any) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const payload = Object.fromEntries(formData);
+        console.log(payload);
+    }
     return (
         <div>
             <Navbar logout={props.logout} />
@@ -29,7 +35,7 @@ export default function Authorized(props: any) {
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
-                <PopupForm />
+                <PopupForm submitPopupForm={submitPopupForm} />
             </dialog>
         </div>
     )
