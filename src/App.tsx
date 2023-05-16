@@ -12,7 +12,7 @@ function App() {
     .setEndpoint("https://cloud.appwrite.io/v1")
     .setProject("643f8a2cb1139b2566be");
   const account = new Account(client);
-  const [userLoggedIn, setUserLoggedIn] = useState("true");
+  const [userLoggedIn, setUserLoggedIn] = useState("false");
 
   const submitForm = (e: any) => {
     setUserLoggedIn("loading");
