@@ -14,11 +14,11 @@ export default function PopupForm(props: any) {
       <Dropdown labelFor="AC" labelText="Air Conditioning (AC)" name="AC" placeholder="-- Choose an option --" options={["Yes", "No"]}/>
       <div className="w-full xl:w-[45%] lg:w-[40%] mb-3 sm:mb-0">
         <label htmlFor="comments" className="block mb-2 text-sm font-medium text-slate-200">Comments</label>
-        <textarea rows={1} name="comments" className="bg-gray-50 border text-sm rounded-lg focus:ring-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:border-blue-500"></textarea>
+        <textarea rows={1} name="comments" className="bg-gray-50 border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500 hover:border-blue-500"></textarea>
       </div>
       <div className='w-full text-center'>
         <button type="submit" className="w-1/2 mt-5 hover:bg-blue-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 focus:ring-blue-800">
-          Sign in
+          Submit
         </button>
       </div>
     </form>
