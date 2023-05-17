@@ -1,11 +1,15 @@
-import { useEffect } from "react";
+import { BaseSyntheticEvent, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import '../components/modal.css'
 import PopupForm from "../components/PopupForm";
 import Card from "../components/Card";
+import { Client, Databases, ID } from "appwrite";
 
 export default function Authorized(props: any) {
     let modal: any;
+    const client = new Client()
+        .setEndpoint("https://cloud.appwrite.io/v1")
+        .setProject("643f8a2cb1139b2566be")
     useEffect(() => {
         modal = document.querySelector("#modal");
     });
@@ -15,17 +19,58 @@ export default function Authorized(props: any) {
         const payload = Object.fromEntries(formData);
         console.log(payload);
     }
+    const deleteCard = (e: BaseSyntheticEvent) => {
+        e.currentTarget.parentElement?.remove()
+    }
+    const fetch = () => {
+        const databases = new Databases(client);
+
+        // let promise = databases.listDocuments(
+        //     "646483bb9e833bbe04a7",
+        //     "6464840e5c84b9faab38"
+        // );
+
+        // promise.then(function (response) {
+        //     console.log(response);
+        // }, function (error) {
+        //     console.log(error);
+        // });
+
+        // const promise = databases.createDocument('646483bb9e833bbe04a7', '6464840e5c84b9faab38', ID.unique(), {
+        //     Pickup: "jslkdjfsjfksdjf",
+        //     Dropoff: "kjdsflksjdlkfjsadf",
+        //     Date: "04/05/2023",
+        //     Time: "09:00 AM",
+        //     Fare: 500,
+        //     AC: true
+        // });
+
+        // promise.then(function (response) {
+        //     console.log(response); // Success
+        // }, function (error) {
+        //     console.log(error); // Failure
+        // });
+
+        const promise = databases.deleteDocument('646483bb9e833bbe04a7', '6464840e5c84b9faab38', '6464966954538010ab1f');
+
+        promise.then(function (response) {
+            console.log(response); // Success
+        }, function (error) {
+            console.log(error); // Failure
+        });
+    }
     return (
         <div className="text-white">
             <Navbar logout={props.logout} />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
+            {/* <Card deleteCard={deleteCard}/>
+            <Card deleteCard={deleteCard}/>
+            <Card deleteCard={deleteCard}/>
+            <Card deleteCard={deleteCard}/>
+            <Card deleteCard={deleteCard}/>
+            <Card deleteCard={deleteCard}/>
+            <Card deleteCard={deleteCard}/>
+            <Card deleteCard={deleteCard}/> */}
+            <button onClick={fetch}>Fetch documents</button>
             <button id="fab" onClick={() =>
                 modal.showModal()}
                 className="fixed bottom-0 right-0 m-10 w-30 p-5 text-white bg-blue-600 hover:bg-blue-700 rounded-full dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:bg-blue-900">
