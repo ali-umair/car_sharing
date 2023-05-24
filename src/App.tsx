@@ -3,7 +3,7 @@ import './App.css';
 //@ts-ignore
 import { Client, Account } from 'appwrite';
 import LoginForm from './components/LoginForm';
-import Authorized from './Screens/Authorized';
+import Authorized from "./Screens/Authorized";
 import Spinner from './components/Spinner';
 
 function App() {

@@ -10,7 +10,7 @@ export default function PopupForm(props: any) {
       <TextField labelText="Date" type="date" name="date" />
       <TextField labelText="Time" type="time" name="time"/>
       <TextField labelText="Fare (Rs.)" type="number" name="fare" placeholder="Enter Fare in Rupees" />
-      <Dropdown labelFor="carType" labelText="Car Type" name="carType" placeholder="-- Choose a car type --" options={carTypes}/>
+      <Dropdown labelFor="carType" labelText="Car Type" name="car_type" placeholder="-- Choose a car type --" options={carTypes}/>
       <Dropdown labelFor="AC" labelText="Air Conditioning (AC)" name="AC" placeholder="-- Choose an option --" options={["Yes", "No"]}/>
       <div className="w-full xl:w-[45%] lg:w-[40%] mb-3 sm:mb-0">
         <label htmlFor="comments" className="block mb-2 text-sm font-medium text-slate-200">Comments</label>

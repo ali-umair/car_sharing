@@ -1,9 +1,14 @@
-import { BaseSyntheticEvent, useEffect } from "react";
+import { BaseSyntheticEvent, MouseEventHandler, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import '../components/modal.css'
 import PopupForm from "../components/PopupForm";
 import Card from "../components/Card";
 import { Client, Databases, ID } from "appwrite";
+import Spinner from "../components/Spinner";
+import PopupMessage from "../components/popups/Message";
+import Message from "../components/popups/Message";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Authorized(props: any) {
     let modal: any;
@@ -12,18 +17,90 @@ export default function Authorized(props: any) {
         .setProject("643f8a2cb1139b2566be")
     useEffect(() => {
         modal = document.querySelector("#modal");
-    });
+    })
+    useEffect(() => {
+        let promise = databases.listDocuments(
+            "646483bb9e833bbe04a7",
+            "6464c72c42d713406988"
+        );
+
+        promise.then(function (response: any) {
+            console.log(response);
+            setData(response.documents);
+            // response.documents.forEach(document => {
+            //     //@ts-ignore
+            //     // setCards((current: any) => [...current, <Card />]);
+            // });
+
+        }, function (error) {
+            console.log(error);
+        });
+    }, []);
+    const databases = new Databases(client);
+    const [Data, setData] = useState();
+    let message: string;
+    interface payload {
+        pickup_location: string,
+        dropoff_location: string,
+        date: string,
+        time: string,
+        fare: number,
+        carType?: string,
+        AC: string,
+        comments?: string
+    }
+    const colors = {
+        error: "#ef4444",
+        success: "#22c55e",
+    }
     const submitPopupForm = (e: any) => {
         e.preventDefault();
-        const formData = new FormData(e.target);
-        const payload = Object.fromEntries(formData);
-        console.log(payload);
+        const formData: FormData = new FormData(e.target);
+        const payload: any = Object.fromEntries(formData);
+        const promise = databases.createDocument('646483bb9e833bbe04a7', '6464c72c42d713406988', ID.unique(), payload);
+
+        promise.then(function (response) {
+            console.log(response); // Success
+            let promise = databases.listDocuments(
+                "646483bb9e833bbe04a7",
+                "6464c72c42d713406988"
+            );
+
+            promise.then(function (response: any) {
+                console.log(response);
+                setData(response.documents);
+                message = "Added Successfully."
+                // response.documents.forEach(document => {
+                //     //@ts-ignore
+                //     // setCards((current: any) => [...current, <Card />]);
+                // });
+
+            }, function (error) {
+                console.log(error);
+            });
+        }, function (error) {
+            console.log(error); // Failure
+            alert("Error while submitting form");
+        });
+        modal.close();
+
     }
     const deleteCard = (e: BaseSyntheticEvent) => {
-        e.currentTarget.parentElement?.remove()
+        let card = e.currentTarget.parentElement;
+        let cardId = card.querySelector("#id").textContent;
+        const promise = databases.deleteDocument('646483bb9e833bbe04a7', '6464c72c42d713406988', cardId);
+
+        notify(promise);
+        promise.then(function (response) {
+            console.log(response); // Success
+            card.remove();
+        }, function (error) {
+            console.log(error); // Failure
+            alert("Failed to delete");
+            console.log(cardId);
+        });
     }
     const fetch = () => {
-        const databases = new Databases(client);
 
         // let promise = databases.listDocuments(
         //     "646483bb9e833bbe04a7",
@@ -59,17 +136,32 @@ export default function Authorized(props: any) {
             console.log(error); // Failure
         });
     }
+    const cardsGenerate = () => {
+        let cards: Array<any> = [];
+        if (Data) {
+            //@ts-ignore
+            Data.forEach(doc => {
+                cards.push(<Card doc={doc} deleteCard={deleteCard} />)
+            });
+            return cards
+        }
+        else return <Spinner />
+    }
+    const notify = (promise: any) => {
+        toast.promise(
+            promise,
+            {
+                pending: 'Promise is pending',
+                success: 'Promise resolved 👌',
+                error: 'Promise rejected 🤯'
+            }
+        )
+    }
     return (
         <div className="text-white">
             <Navbar logout={props.logout} />
-            {/* <Card deleteCard={deleteCard}/>
-            <Card deleteCard={deleteCard}/>
-            <Card deleteCard={deleteCard}/>
-            <Card deleteCard={deleteCard}/>
-            <Card deleteCard={deleteCard}/>
-            <Card deleteCard={deleteCard}/>
-            <Card deleteCard={deleteCard}/>
-            <Card deleteCard={deleteCard}/> */}
+            <ToastContainer />
+            {cardsGenerate()}
             <button onClick={fetch}>Fetch documents</button>
             <button id="fab" onClick={() =>
                 modal.showModal()}
