@@ -7,7 +7,7 @@ import { Client, Databases, ID } from "appwrite";
 import Spinner from "../components/Spinner";
 import PopupMessage from "../components/popups/Message";
 import Message from "../components/popups/Message";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, ToastOptions, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Authorized(props: any) {
@@ -38,7 +38,10 @@ export default function Authorized(props: any) {
     }, []);
     const databases = new Databases(client);
     const [Data, setData] = useState();
-    let message: string;
+    const loadingToastOptions: ToastOptions<any> = {
+        theme: "dark",
+        closeButton: true
+    }
     interface payload {
         pickup_location: string,
         dropoff_location: string,
@@ -59,8 +62,10 @@ export default function Authorized(props: any) {
         const payload: any = Object.fromEntries(formData);
         const promise = databases.createDocument('646483bb9e833bbe04a7', '6464c72c42d713406988', ID.unique(), payload);
 
+        const tl = toast.loading("Please wait...", loadingToastOptions)
         promise.then(function (response) {
             console.log(response); // Success
+            toast.update(tl, { render: "Record added successfully", type: "success", isLoading: false, autoClose: 3000 })
             let promise = databases.listDocuments(
                 "646483bb9e833bbe04a7",
                 "6464c72c42d713406988"
@@ -68,8 +73,8 @@ export default function Authorized(props: any) {
 
             promise.then(function (response: any) {
                 console.log(response);
+                toast.update(tl, { render: "List updated successfully", type: "success", isLoading: false })
                 setData(response.documents);
-                message = "Added Successfully."
                 // response.documents.forEach(document => {
                 //     //@ts-ignore
                 //     // setCards((current: any) => [...current, <Card />]);
@@ -77,10 +82,11 @@ export default function Authorized(props: any) {
 
             }, function (error) {
                 console.log(error);
+                toast.update(tl, { render: error.message, type: "error", isLoading: false })
             });
         }, function (error) {
             console.log(error); // Failure
-            alert("Error while submitting form");
+            toast.update(tl, { render: error.message, type: "error", isLoading: false })
         });
         modal.close();
 
@@ -90,14 +96,15 @@ export default function Authorized(props: any) {
         let cardId = card.querySelector("#id").textContent;
         const promise = databases.deleteDocument('646483bb9e833bbe04a7', '6464c72c42d713406988', cardId);
 
-        notify(promise);
+        // toastDisplay(promise, "Deleting", "Card Deleted Successfully", "Error Deleting Card");
+        const tl = toast.loading("Please wait...", loadingToastOptions)
         promise.then(function (response) {
             console.log(response); // Success
             card.remove();
+            toast.update(tl, { render: "Card deleted successfully", type: "success", isLoading: false, autoClose: 3000 })
         }, function (error) {
             console.log(error); // Failure
-            alert("Failed to delete");
-            console.log(cardId);
+            toast.update(tl, { render: error.message, type: "error", isLoading: false, autoClose: 3000, })
         });
     }
     const fetch = () => {
@@ -147,13 +154,13 @@ export default function Authorized(props: any) {
         }
         else return <Spinner />
     }
-    const notify = (promise: any) => {
+    const toastDisplay = (promise: Promise<any>, pending: string, success: string, error: string) => {
         toast.promise(
             promise,
             {
-                pending: 'Promise is pending',
-                success: 'Promise resolved 👌',
-                error: 'Promise rejected 🤯'
+                pending: pending,
+                success: success,
+                error: error
             }
         )
     }
