@@ -95,8 +95,6 @@ export default function Authorized(props: any) {
         let card = e.currentTarget.parentElement;
         let cardId = card.querySelector("#id").textContent;
         const promise = databases.deleteDocument('646483bb9e833bbe04a7', '6464c72c42d713406988', cardId);
-
-        // toastDisplay(promise, "Deleting", "Card Deleted Successfully", "Error Deleting Card");
         const tl = toast.loading("Please wait...", loadingToastOptions)
         promise.then(function (response) {
             console.log(response); // Success
@@ -154,20 +152,9 @@ export default function Authorized(props: any) {
         }
         else return <Spinner />
     }
-    const toastDisplay = (promise: Promise<any>, pending: string, success: string, error: string) => {
-        toast.promise(
-            promise,
-            {
-                pending: pending,
-                success: success,
-                error: error
-            }
-        )
-    }
     return (
         <div className="text-white">
             <Navbar logout={props.logout} />
-            <ToastContainer />
             {cardsGenerate()}
             <button onClick={fetch}>Fetch documents</button>
             <button id="fab" onClick={() =>
