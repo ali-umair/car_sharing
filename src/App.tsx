@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 //@ts-ignore
 import { Client, Account } from 'appwrite';
@@ -19,6 +19,16 @@ function App() {
     theme: "dark",
     closeButton: true
 }
+
+useEffect(() => {
+  const promise = account.get();
+  promise.then((response) => {
+    toast.success("User already has an active session");
+    setUserLoggedIn("true");
+  }, (error) => {
+    toast.error("Kindly log-in");
+  })
+}, [])
 
   const submitForm = (e: any) => {
     setUserLoggedIn("loading");
