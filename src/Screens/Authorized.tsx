@@ -9,6 +9,7 @@ import PopupMessage from "../components/popups/Message";
 import Message from "../components/popups/Message";
 import { ToastContainer, ToastOptions, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CardNew from "../components/CardNew";
 
 export default function Authorized(props: any) {
     let modal: any;
@@ -146,7 +147,7 @@ export default function Authorized(props: any) {
         if (Data) {
             //@ts-ignore
             Data.forEach(doc => {
-                cards.push(<Card doc={doc} deleteCard={deleteCard} />)
+                cards.push(<CardNew doc={doc} deleteCard={deleteCard} />)
             });
             return cards
         }
