@@ -156,7 +156,9 @@ export default function Authorized(props: any) {
     return (
         <div className="text-white">
             <Navbar logout={props.logout} />
-            {cardsGenerate()}
+            <div className="flex flex-col items-center">
+                {cardsGenerate()}
+            </div>
             <button onClick={fetch}>Fetch documents</button>
             <button id="fab" onClick={() =>
                 modal.showModal()}
