@@ -2,12 +2,9 @@ import { BaseSyntheticEvent, MouseEventHandler, useEffect, useState } from "reac
 import Navbar from "../components/Navbar";
 import '../components/modal.css'
 import PopupForm from "../components/PopupForm";
-import Card from "../components/Card";
 import { Client, Databases, ID } from "appwrite";
 import Spinner from "../components/Spinner";
-import PopupMessage from "../components/popups/Message";
-import Message from "../components/popups/Message";
-import { ToastContainer, ToastOptions, toast } from 'react-toastify';
+import { ToastOptions, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CardNew from "../components/CardNew";
 
@@ -154,9 +151,9 @@ export default function Authorized(props: any) {
         else return <Spinner />
     }
     return (
-        <div className="text-white">
+        <div className="">
             <Navbar logout={props.logout} />
-            <div className="flex flex-col items-center">
+            <div className="flex items-center gap-5 flex-wrap px-2">
                 {cardsGenerate()}
             </div>
             <button onClick={fetch}>Fetch documents</button>
