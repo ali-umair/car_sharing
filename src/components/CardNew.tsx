@@ -43,10 +43,13 @@ export default function CardNew(props: any) {
             <div className="h-1 w-1 rounded-full bg-slate-600"></div>
           </div>
           <div className="flex flex-col justify-between">
-            <div className="mb-3 font-bold">Cairo-Festival City Mall</div>
+            <div className="leading-4">
+              <div className="font-bold text-xs text-slate-400">ISB</div>
+              <div className="mb-3 font-bold">Cairo-Festival City Mall</div>
+            </div>
             {/* <div className="text-xs font-bold tracking-wider text-slate-400">Intermediate stop</div>
             <div className="text-xs font-bold tracking-wider text-slate-400">Intermediate stop</div> */}
-            <div className="mt-3 font-bold">Arkan Plaza</div>
+            <div className="mt- font-bold">Arkan Plaza</div>
           </div>
         </div>
         <div className="mt-3 h-[3px] w-full bg-slate-200"></div>

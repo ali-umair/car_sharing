@@ -9,13 +9,21 @@ import 'react-toastify/dist/ReactToastify.css';
 import CardNew from "../components/CardNew";
 
 export default function Authorized(props: any) {
+
+    // Popup Form Modal
     let modal: any;
-    const client = new Client()
-        .setEndpoint("https://cloud.appwrite.io/v1")
-        .setProject("643f8a2cb1139b2566be")
     useEffect(() => {
         modal = document.querySelector("#modal");
     })
+
+    // Appwrite boilerplate
+    const client = new Client()
+        .setEndpoint("https://cloud.appwrite.io/v1")
+        .setProject("643f8a2cb1139b2566be");
+
+    const databases = new Databases(client);
+
+    // Fetching data on App load
     useEffect(() => {
         let promise = databases.listDocuments(
             "646483bb9e833bbe04a7",
@@ -34,12 +42,16 @@ export default function Authorized(props: any) {
             console.log(error);
         });
     }, []);
-    const databases = new Databases(client);
-    const [Data, setData] = useState();
+
+    // Toaster options
     const loadingToastOptions: ToastOptions<any> = {
         theme: "dark",
         closeButton: true
     }
+
+
+
+    // Interfaces and Objects
     interface payload {
         pickup_location: string,
         dropoff_location: string,
@@ -54,23 +66,39 @@ export default function Authorized(props: any) {
         error: "#ef4444",
         success: "#22c55e",
     }
+
+    // States
+    const [Data, setData] = useState();
+    const data: any = Data;
+
+    // Methods
+    // Method for submitting popup form data
     const submitPopupForm = (e: any) => {
+        // Preventing default action
         e.preventDefault();
         const formData: FormData = new FormData(e.target);
         const payload: any = Object.fromEntries(formData);
+
+        // Creatin Promise
         const promise = databases.createDocument('646483bb9e833bbe04a7', '6464c72c42d713406988', ID.unique(), payload);
 
+        // Loading toaster
         const tl = toast.loading("Please wait...", loadingToastOptions)
+
+        // Fetching data (Promise)
+        // Promise Chaining
+        // First promise for adding record in DB (Appwrite)
         promise.then(function (response) {
-            console.log(response); // Success
+            console.log(response); // Success for first promise
             toast.update(tl, { render: "Record added successfully", type: "success", isLoading: false, autoClose: 3000 })
             let promise = databases.listDocuments(
                 "646483bb9e833bbe04a7",
                 "6464c72c42d713406988"
             );
 
+            //Second promise for loading updated documents in app
             promise.then(function (response: any) {
-                console.log(response);
+                console.log(response); // Success for second promise
                 toast.update(tl, { render: "List updated successfully", type: "success", isLoading: false })
                 setData(response.documents);
                 // response.documents.forEach(document => {
@@ -79,16 +107,20 @@ export default function Authorized(props: any) {
                 // });
 
             }, function (error) {
-                console.log(error);
+                console.log(error); // Failure for second promise
                 toast.update(tl, { render: error.message, type: "error", isLoading: false })
             });
         }, function (error) {
-            console.log(error); // Failure
+            console.log(error); // Failure for first promise
             toast.update(tl, { render: error.message, type: "error", isLoading: false })
         });
+
+        // Closing popup form after successful submission
         modal.close();
 
     }
+
+    // Method for deleting entry
     const deleteCard = (e: BaseSyntheticEvent) => {
         let card = e.currentTarget.parentElement;
         let cardId = card.querySelector("#id").textContent;
@@ -96,6 +128,7 @@ export default function Authorized(props: any) {
         const tl = toast.loading("Please wait...", loadingToastOptions)
         promise.then(function (response) {
             console.log(response); // Success
+            // Remove card if delete request is successful
             card.remove();
             toast.update(tl, { render: "Card deleted successfully", type: "success", isLoading: false, autoClose: 3000 })
         }, function (error) {
@@ -103,60 +136,18 @@ export default function Authorized(props: any) {
             toast.update(tl, { render: error.message, type: "error", isLoading: false, autoClose: 3000, })
         });
     }
-    const fetch = () => {
-
-        // let promise = databases.listDocuments(
-        //     "646483bb9e833bbe04a7",
-        //     "6464840e5c84b9faab38"
-        // );
-
-        // promise.then(function (response) {
-        //     console.log(response);
-        // }, function (error) {
-        //     console.log(error);
-        // });
-
-        // const promise = databases.createDocument('646483bb9e833bbe04a7', '6464840e5c84b9faab38', ID.unique(), {
-        //     Pickup: "jslkdjfsjfksdjf",
-        //     Dropoff: "kjdsflksjdlkfjsadf",
-        //     Date: "04/05/2023",
-        //     Time: "09:00 AM",
-        //     Fare: 500,
-        //     AC: true
-        // });
-
-        // promise.then(function (response) {
-        //     console.log(response); // Success
-        // }, function (error) {
-        //     console.log(error); // Failure
-        // });
-
-        const promise = databases.deleteDocument('646483bb9e833bbe04a7', '6464840e5c84b9faab38', '6464966954538010ab1f');
-
-        promise.then(function (response) {
-            console.log(response); // Success
-        }, function (error) {
-            console.log(error); // Failure
-        });
-    }
-    const cardsGenerate = () => {
-        let cards: Array<any> = [];
-        if (Data) {
-            //@ts-ignore
-            Data.forEach(doc => {
-                cards.push(<CardNew doc={doc} deleteCard={deleteCard} />)
-            });
-            return cards
-        }
-        else return <Spinner />
-    }
+    
     return (
         <div className="">
             <Navbar logout={props.logout} />
-            <div className="flex items-center gap-5 flex-wrap px-2">
-                {cardsGenerate()}
+            <div className="flex justify-center gap-5 flex-wrap px-2">
+                {/* Using map to generate components iteratively */}
+                {
+                    data.map((item: any, index: number) => (
+                        <CardNew doc={item} deleteCard={deleteCard} />
+                    ))
+                }
             </div>
-            <button onClick={fetch}>Fetch documents</button>
             <button id="fab" onClick={() =>
                 modal.showModal()}
                 className="fixed bottom-0 right-0 m-10 w-30 p-5 text-white bg-blue-600 hover:bg-blue-700 rounded-full dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:bg-blue-900">
