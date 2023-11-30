@@ -68,8 +68,7 @@ export default function Authorized(props: any) {
     }
 
     // States
-    const [Data, setData] = useState();
-    const data: any = Data;
+    const [Data, setData] = useState<Array<Object>>();
 
     // Methods
     // Method for submitting popup form data
@@ -136,6 +135,28 @@ export default function Authorized(props: any) {
             toast.update(tl, { render: error.message, type: "error", isLoading: false, autoClose: 3000, })
         });
     }
+
+    const fetchData = () => {
+        let promise = databases.listDocuments(
+            "646483bb9e833bbe04a7",
+            "6464c72c42d713406988"
+        );
+
+        //Second promise for loading updated documents in app
+        promise.then(function (response: any) {
+            console.log(response); // Success for second promise
+            setData(response.documents);
+            // response.documents.forEach(document => {
+            //     //@ts-ignore
+            //     // setCards((current: any) => [...current, <Card />]);
+            // });
+
+        }, function (error) {
+            console.log(error); // Failure for second promise
+        });
+    }
+
+    fetchData();
     
     return (
         <div className="">
@@ -143,7 +164,8 @@ export default function Authorized(props: any) {
             <div className="flex justify-center gap-5 flex-wrap px-2">
                 {/* Using map to generate components iteratively */}
                 {
-                    data.map((item: any, index: number) => (
+                    
+                    Data && Data.map((item: any, index: number) => (
                         <CardNew doc={item} deleteCard={deleteCard} />
                     ))
                 }
