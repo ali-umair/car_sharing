@@ -122,8 +122,7 @@ export default function Authorized(props: any) {
     // Method for deleting entry
     const deleteCard = (e: BaseSyntheticEvent) => {
         let card = e.currentTarget.parentElement;
-        let cardId = card.querySelector("#id").textContent;
-        const promise = databases.deleteDocument('646483bb9e833bbe04a7', '6464c72c42d713406988', cardId);
+        const promise = databases.deleteDocument('646483bb9e833bbe04a7', '6464c72c42d713406988', card.id);
         const tl = toast.loading("Please wait...", loadingToastOptions)
         promise.then(function (response) {
             console.log(response); // Success
@@ -155,16 +154,13 @@ export default function Authorized(props: any) {
             console.log(error); // Failure for second promise
         });
     }
-
-    fetchData();
     
     return (
         <div className="">
             <Navbar logout={props.logout} />
-            <div className="flex justify-center gap-5 flex-wrap px-2">
+            <div className="flex justify-center gap-5 flex-wrap py-7">
                 {/* Using map to generate components iteratively */}
-                {
-                    
+                { 
                     Data && Data.map((item: any, index: number) => (
                         <CardNew doc={item} deleteCard={deleteCard} />
                     ))

@@ -3,11 +3,13 @@ import TextField from './TextField'
 
 export default function PopupForm(props: any) {
   let carTypes: Array<string> = ["Small Hatchback (Mehran, Alto etc.)", "Hatchback (Cultus, Passo etc.)", "Sedan (Corolla, Civic etc.)", "SUV (Sportage, BRV etc.)" , "Other"];
+  let days: Array<string> = ["Mon", "Sun", "Tue" , "Wed", "Thu", "Fri", "Sat", "Sun"];
   return (
     <form action="#" className="mt-5 flex flex-wrap gap-5 justify-center" onSubmit={props.submitPopupForm}>
       <TextField labelText="Pickup" type="text" name="pickup_location" placeholder="St # 01, H # 01, A-Block, B-17" />
       <TextField labelText="Dropoff" type="text" name="dropoff_location" placeholder="Zero Point ISB" />
-      <TextField labelText="Date" type="date" name="date" />
+      {/* <TextField labelText="Date" type="date" name="date" /> */}
+      <Dropdown labelFor="day" labelText="Day (You can only post ride for the ongoing week)" name="date" placeholder="-- Choose a day --" options={days}/>
       <TextField labelText="Time" type="time" name="time"/>
       <TextField labelText="Fare (Rs.)" type="number" name="fare" placeholder="Enter Fare in Rupees" />
       <Dropdown labelFor="carType" labelText="Car Type" name="car_type" placeholder="-- Choose a car type --" options={carTypes}/>
