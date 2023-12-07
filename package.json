@@ -1,7 +1,7 @@
 {
   "homepage": "https://ali-umair.github.io/car_sharing",
   "name": "car-sharing",
-  "private": true,
+  "private": false,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -9,7 +9,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build" 
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "appwrite": "^11.0.0",
