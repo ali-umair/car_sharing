@@ -8,17 +8,17 @@ export default function CardNew(props: any) {
         </button> */}
       </button>
       <div className="rounded bg-gray-100 px-5 pt-5 pb-1 shadow-xl">
-        <div className="flex w-96">
+        <div className="flex w-72 sm:w-96">
           <div className="flex flex-col gap-2 justify-between leading-4">
             <div className="">
               <div className="text-xs font-bold text-slate-400">{props.doc.date}</div>
-              <div className="text-sm font-bold tracking-widest">{props.doc.time}</div>
+              <div className="text-xs sm:text-sm font-bold tracking-widest">{props.doc.time}</div>
             </div>
             {/* <div className="text-xs font-bold tracking-widest text-slate-400">12:10 PM</div>
             <div className="text-xs font-bold tracking-widest text-slate-400">12:10 PM</div> */}
             <div className="">
               <div className="text-xs font-bold text-slate-400">Arrive</div>
-              <div className="text-sm font-bold tracking-widest">{props.doc.time}</div>
+              <div className="text-xs sm:text-sm font-bold tracking-widest">{props.doc.time}</div>
             </div>
           </div>
           <div className="mx-5 flex w-1 flex-col justify-center gap-1 rounded">
@@ -31,11 +31,11 @@ export default function CardNew(props: any) {
           <div className="flex flex-col justify-between">
             <div className="leading-4">
               <div className="font-bold text-xs text-slate-400">ISB</div>
-              <div className="mb-3 text-sm font-bold">{props.doc.pickup_location}</div>
+              <div className="mb-3 text-xs sm:text-sm font-bold">{props.doc.pickup_location}</div>
             </div>
             {/* <div className="text-xs font-bold tracking-wider text-slate-400">Intermediate stop</div>
             <div className="text-xs font-bold tracking-wider text-slate-400">Intermediate stop</div> */}
-            <div className="text-sm font-bold">{props.doc.dropoff_location}</div>
+            <div className="text-xs sm:text-sm font-bold">{props.doc.dropoff_location}</div>
           </div>
         </div>
         <div className="mt-3 h-[3px] w-full bg-slate-200"></div>
@@ -62,7 +62,7 @@ export default function CardNew(props: any) {
               AC
             </div>
           }
-          <div className="ml-auto flex items-center justify-center rounded text-sm font-bold text-green-600">
+          <div className="ml-auto flex items-center justify-center rounded text-xs sm:text-sm font-bold text-green-600">
             <svg fill="#16a34a" height="20px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 486.201 486.201" stroke="#16a34a">
               <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
               <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
