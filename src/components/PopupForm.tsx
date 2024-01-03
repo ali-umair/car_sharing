@@ -2,21 +2,37 @@ import Dropdown from './Dropdown'
 import TextField from './TextField'
 
 export default function PopupForm(props: any) {
-  let carTypes: Array<string> = ["Small Hatchback (Mehran, Alto etc.)", "Hatchback (Cultus, Passo etc.)", "Sedan (Corolla, Civic etc.)", "SUV (Sportage, BRV etc.)", "Other"];
-  let days: Array<string> = ["Mon", "Sun", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  const carTypes: Array<string> = ["Small Hatchback (Mehran, Alto etc.)", "Hatchback (Cultus, Passo etc.)", "Sedan (Corolla, Civic etc.)", "SUV (Sportage, BRV etc.)", "Other"];
+  const days: Array<string> = ["Mon", "Sun", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  const locations: Array<string> = [
+    "A-Block (B-17)",
+    "B-Block (B-17)",
+    "C-Block (B-17)",
+    "D-Block (B-17)",
+    "E-Block (B-17)",
+    "F-Block (B-17)",
+    "Zero Point (ISB)",
+    "Peshawar More (ISB)",
+    "26 Number (ISB)",
+    "G-10 (ISB)",
+    "G-11 (ISB)",
+  ]
   return (
     <form action="#" className="mt-5 flex flex-wrap gap-5 justify-center" onSubmit={props.submitPopupForm}>
       <div className="w-full xl:w-[45%] lg:w-[40%]">
-        <TextField labelText="Pickup" type="text" name="pickup_location" placeholder="St # 01, H # 01, A-Block, B-17" />
+        <Dropdown labelFor="pickup_location" labelText="Pickup" name="pickup_location" placeholder="-- Choose a location --" options={locations} />
       </div>
       <div className="w-full xl:w-[45%] lg:w-[40%]">
-        <TextField labelText="Dropoff" type="text" name="dropoff_location" placeholder="Zero Point ISB" />
+        <Dropdown labelFor="dropoff_location" labelText="Dropoff" name="dropoff_location" placeholder="-- Choose a location --" options={locations} />
       </div>
       <div className="w-full xl:w-[45%] lg:w-[40%]">
         <Dropdown labelFor="day" labelText="Day (You can only post ride for the ongoing week)" name="date" placeholder="-- Choose a day --" options={days} />
       </div>
       <div className="w-full xl:w-[45%] lg:w-[40%]">
-        <TextField labelText="Time" type="time" name="time" />
+        <TextField labelText="Pickup Time" type="time" name="pickup_time" />
+      </div>
+      <div className="w-full xl:w-[45%] lg:w-[40%]">
+        <TextField labelText="Expected Dropoff Time" type="time" name="dropoff_time" />
       </div>
       <div className="w-full xl:w-[45%] lg:w-[40%]">
         <TextField labelText="Fare (Rs.)" type="number" name="fare" placeholder="Enter Fare in Rupees" />
