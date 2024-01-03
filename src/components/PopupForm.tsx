@@ -26,7 +26,7 @@ export default function PopupForm(props: any) {
         <Dropdown labelFor="dropoff_location" labelText="Dropoff" name="dropoff_location" placeholder="-- Choose a location --" options={locations} />
       </div>
       <div className="w-full xl:w-[45%] lg:w-[40%]">
-        <Dropdown labelFor="day" labelText="Day (You can only post ride for the ongoing week)" name="date" placeholder="-- Choose a day --" options={days} />
+        <Dropdown labelFor="day" labelText="Day (You can only post ride for the ongoing week)" name="day" placeholder="-- Choose a day --" options={days} />
       </div>
       <div className="w-full xl:w-[45%] lg:w-[40%]">
         <TextField labelText="Pickup Time" type="time" name="pickup_time" />

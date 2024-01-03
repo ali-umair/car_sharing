@@ -11,14 +11,14 @@ export default function CardNew(props: any) {
         <div className="flex w-72 sm:w-96">
           <div className="flex flex-col gap-2 justify-between leading-4">
             <div className="">
-              <div className="text-xs font-bold text-slate-400">{props.doc.date}</div>
-              <div className="text-xs sm:text-sm font-bold tracking-widest">{props.doc.time}</div>
+              <div className="text-xs font-bold text-slate-400">{props.doc.day}</div>
+              <div className="text-xs sm:text-sm font-bold tracking-widest">{props.doc.pickup_time}</div>
             </div>
             {/* <div className="text-xs font-bold tracking-widest text-slate-400">12:10 PM</div>
             <div className="text-xs font-bold tracking-widest text-slate-400">12:10 PM</div> */}
             <div className="">
               <div className="text-xs font-bold text-slate-400">Arrive</div>
-              <div className="text-xs sm:text-sm font-bold tracking-widest">{props.doc.time}</div>
+              <div className="text-xs sm:text-sm font-bold tracking-widest">{props.doc.dropoff_time}</div>
             </div>
           </div>
           <div className="mx-5 flex w-1 flex-col justify-center gap-1 rounded">
