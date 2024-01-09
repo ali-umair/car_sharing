@@ -6,7 +6,7 @@ import { Client, Databases, ID } from "appwrite";
 import Spinner from "../components/Spinner";
 import { ToastOptions, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import CardNew from "../components/CardNew";
+import Card from "../components/Card";
 
 export default function Authorized(props: any) {
 
@@ -145,7 +145,7 @@ export default function Authorized(props: any) {
                 {/* Using map to generate components iteratively */}
                 {
                     Data && Data.map((item: any, index: number) => (
-                        <CardNew doc={item} deleteCard={deleteCard} />
+                        <Card doc={item} deleteCard={deleteCard} />
                     ))
                 }
             </div>
