@@ -2,7 +2,7 @@ import { BaseSyntheticEvent, MouseEventHandler, useEffect, useState } from "reac
 import Navbar from "../components/Navbar";
 import '../components/modal.css'
 import PopupForm from "../components/PopupForm";
-import { Client, Databases, ID } from "appwrite";
+import { Client, Databases, ID, Query } from "appwrite";
 import Spinner from "../components/Spinner";
 import { ToastOptions, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -33,6 +33,7 @@ export default function Authorized(props: any) {
         promise.then(function (response: any) {
             console.log(response);
             setData(response.documents);
+            setShowResetBtn(false);
         }, function (error) {
             console.log(error);
         });
@@ -62,6 +63,7 @@ export default function Authorized(props: any) {
 
     // States
     const [Data, setData] = useState<Array<Object>>();
+    const [ShowResetBtn, setShowResetBtn] = useState<boolean>(false);
 
     // Methods
     // Method for submitting popup form data
@@ -107,6 +109,22 @@ export default function Authorized(props: any) {
 
     }
 
+    const fetchfilteredData = (e: any) => {
+        // Preventing default action
+        e.preventDefault();
+        // Creating formData and payload
+        const formData: FormData = new FormData(e.target);
+        const payload: any = Object.fromEntries(formData);
+        const query = [];
+        for (const key in payload) {
+            if (payload[key].length != 0) {
+                query.push(Query.equal(`${key}`, [payload[key]]));
+            }
+        }
+        console.log(query);
+        fetchData(query, true);
+    }
+
     // Method for deleting entry
     const deleteCard = (e: BaseSyntheticEvent) => {
         let card = e.currentTarget.parentElement;
@@ -123,16 +141,18 @@ export default function Authorized(props: any) {
         });
     }
 
-    const fetchData = () => {
+    const fetchData = (query: string[], resetBtn: boolean) => {
         let promise = databases.listDocuments(
             "646483bb9e833bbe04a7",
-            "6464c72c42d713406988"
+            "6464c72c42d713406988",
+            query
         );
 
         //Second promise for loading updated documents in app
         promise.then(function (response: any) {
             console.log(response); // Success for second promise
             setData(response.documents);
+            setShowResetBtn(resetBtn);
         }, function (error) {
             console.log(error); // Failure for second promise
         });
@@ -140,7 +160,10 @@ export default function Authorized(props: any) {
 
     return (
         <div className="flex flex-col items-center">
-            <Navbar logout={props.logout} />
+            <Navbar logout={props.logout} fetchfilteredData={fetchfilteredData}/>
+            {
+                ShowResetBtn && <button onClick={() => {fetchData([], false)}}>Reset</button>
+            }
             <div className="flex justify-center gap-3 flex-wrap py-7">
                 {/* Using map to generate components iteratively */}
                 {

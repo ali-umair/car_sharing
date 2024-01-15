@@ -17,7 +17,7 @@ export default function FilterForm(props: any) {
         "G-11 (ISB)",
     ]
     return (
-        <form action="#" className="mt-5 flex flex-wrap gap-5 justify-center" onSubmit={(e: any) => console.log(e)}>
+        <form action="#" className="mt-5 flex flex-wrap gap-5 justify-center" onSubmit={props.fetchfilteredData}>
             <div className="w-full xl:w-[45%] lg:w-[40%]">
                 <Dropdown labelFor="pickup_location" labelText="Pickup" name="pickup_location" placeholder="-- Choose a location --" options={locations} />
             </div>
