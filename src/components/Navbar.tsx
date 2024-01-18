@@ -9,8 +9,8 @@ export default function Navbar(props: any) {
   })
 
   return (
-    <nav className="w-4/5 p-2 flex justify-between items-center border-b-2 border-slate-300">
-      <h1 className="text-rose-600 text-xl font-bold leading-tight tracking-tight md:text-2xl">Car Sharing</h1>
+    <nav className="w-full sm:w-4/5 p-2 flex justify-between items-center border-b-2 border-slate-300">
+      <h1 className="text-rose-600 text-lg sm:text-xl font-bold leading-tight tracking-tight md:text-2xl">Car Sharing</h1>
 
       <div className="buttons">
         {
@@ -27,7 +27,7 @@ export default function Navbar(props: any) {
         </button>
       </div>
 
-      <dialog className="w-3/5 p-10 rounded-lg" id="filter-form">
+      <dialog className="w-4/5 sm:3/5 p-10 rounded-lg" id="filter-form">
         <button onClick={() => {
           filterForm.close()
         }} className="close-button w-30 text-black font-medium hover:text-slate-500 rounded text-sm px-5 py-2.5 text-center absolute top-3 right-1">
