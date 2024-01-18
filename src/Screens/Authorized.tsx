@@ -14,7 +14,7 @@ export default function Authorized(props: any) {
     let modal: any;
     useEffect(() => {
         modal = document.querySelector("#modal");
-    })
+    });
 
     // Appwrite boilerplate
     const client = new Client()
@@ -160,10 +160,7 @@ export default function Authorized(props: any) {
 
     return (
         <div className="flex flex-col items-center">
-            <Navbar logout={props.logout} fetchfilteredData={fetchfilteredData}/>
-            {
-                ShowResetBtn && <button onClick={() => {fetchData([], false)}}>Reset</button>
-            }
+            <Navbar logout={props.logout} fetchfilteredData={fetchfilteredData} fetchData={fetchData} ShowResetBtn={ShowResetBtn}/>
             <div className="flex justify-center gap-3 flex-wrap py-7">
                 {/* Using map to generate components iteratively */}
                 {
