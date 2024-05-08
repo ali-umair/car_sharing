@@ -12,8 +12,10 @@ export default function Authorized(props: any) {
 
     // Popup Form Modal
     let modal: any;
+    let filterModal: any;
     useEffect(() => {
         modal = document.querySelector("#modal");
+        filterModal = document.querySelector("#filter-form");
     });
 
     // Appwrite boilerplate
@@ -72,6 +74,7 @@ export default function Authorized(props: any) {
         e.preventDefault();
         const formData: FormData = new FormData(e.target);
         const payload: any = Object.fromEntries(formData);
+        payload["fare"] = parseInt(payload["fare"]);
 
         // Creatin Promise
         const promise = databases.createDocument('646483bb9e833bbe04a7', '6464c72c42d713406988', ID.unique(), payload);
@@ -123,6 +126,8 @@ export default function Authorized(props: any) {
         }
         console.log(query);
         fetchData(query, true);
+        // e.target.reset();
+        filterModal.close();
     }
 
     // Method for deleting entry
@@ -147,14 +152,17 @@ export default function Authorized(props: any) {
             "6464c72c42d713406988",
             query
         );
+        const tl = toast.loading("Please wait...", loadingToastOptions)
 
         //Second promise for loading updated documents in app
         promise.then(function (response: any) {
             console.log(response); // Success for second promise
             setData(response.documents);
             setShowResetBtn(resetBtn);
+            toast.update(tl, { render: "Data fetched successfully", type: "success", isLoading: false, autoClose: 3000 });
         }, function (error) {
             console.log(error); // Failure for second promise
+            toast.update(tl, { render: error.message, type: "error", isLoading: false, autoClose: 3000, });
         });
     }
 
