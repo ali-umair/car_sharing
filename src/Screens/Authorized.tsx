@@ -2,19 +2,21 @@ import { BaseSyntheticEvent, MouseEventHandler, useEffect, useState } from "reac
 import Navbar from "../components/Navbar";
 import '../components/modal.css'
 import PopupForm from "../components/PopupForm";
-import { Client, Databases, ID } from "appwrite";
+import { Client, Databases, ID, Query } from "appwrite";
 import Spinner from "../components/Spinner";
 import { ToastOptions, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import CardNew from "../components/CardNew";
+import Card from "../components/Card";
 
 export default function Authorized(props: any) {
 
     // Popup Form Modal
     let modal: any;
+    let filterModal: any;
     useEffect(() => {
         modal = document.querySelector("#modal");
-    })
+        filterModal = document.querySelector("#filter-form");
+    });
 
     // Appwrite boilerplate
     const client = new Client()
@@ -33,6 +35,7 @@ export default function Authorized(props: any) {
         promise.then(function (response: any) {
             console.log(response);
             setData(response.documents);
+            setShowResetBtn(false);
         }, function (error) {
             console.log(error);
         });
@@ -62,6 +65,7 @@ export default function Authorized(props: any) {
 
     // States
     const [Data, setData] = useState<Array<Object>>();
+    const [ShowResetBtn, setShowResetBtn] = useState<boolean>(false);
 
     // Methods
     // Method for submitting popup form data
@@ -70,6 +74,7 @@ export default function Authorized(props: any) {
         e.preventDefault();
         const formData: FormData = new FormData(e.target);
         const payload: any = Object.fromEntries(formData);
+        payload["fare"] = parseInt(payload["fare"]);
 
         // Creatin Promise
         const promise = databases.createDocument('646483bb9e833bbe04a7', '6464c72c42d713406988', ID.unique(), payload);
@@ -107,6 +112,24 @@ export default function Authorized(props: any) {
 
     }
 
+    const fetchfilteredData = (e: any) => {
+        // Preventing default action
+        e.preventDefault();
+        // Creating formData and payload
+        const formData: FormData = new FormData(e.target);
+        const payload: any = Object.fromEntries(formData);
+        const query = [];
+        for (const key in payload) {
+            if (payload[key].length != 0) {
+                query.push(Query.equal(`${key}`, [payload[key]]));
+            }
+        }
+        console.log(query);
+        fetchData(query, true);
+        // e.target.reset();
+        filterModal.close();
+    }
+
     // Method for deleting entry
     const deleteCard = (e: BaseSyntheticEvent) => {
         let card = e.currentTarget.parentElement;
@@ -123,29 +146,34 @@ export default function Authorized(props: any) {
         });
     }
 
-    const fetchData = () => {
+    const fetchData = (query: string[], resetBtn: boolean) => {
         let promise = databases.listDocuments(
             "646483bb9e833bbe04a7",
-            "6464c72c42d713406988"
+            "6464c72c42d713406988",
+            query
         );
+        const tl = toast.loading("Please wait...", loadingToastOptions)
 
         //Second promise for loading updated documents in app
         promise.then(function (response: any) {
             console.log(response); // Success for second promise
             setData(response.documents);
+            setShowResetBtn(resetBtn);
+            toast.update(tl, { render: "Data fetched successfully", type: "success", isLoading: false, autoClose: 3000 });
         }, function (error) {
             console.log(error); // Failure for second promise
+            toast.update(tl, { render: error.message, type: "error", isLoading: false, autoClose: 3000, });
         });
     }
 
     return (
         <div className="flex flex-col items-center">
-            <Navbar logout={props.logout} />
+            <Navbar logout={props.logout} fetchfilteredData={fetchfilteredData} fetchData={fetchData} ShowResetBtn={ShowResetBtn}/>
             <div className="flex justify-center gap-3 flex-wrap py-7">
                 {/* Using map to generate components iteratively */}
                 {
                     Data && Data.map((item: any, index: number) => (
-                        <CardNew doc={item} deleteCard={deleteCard} />
+                        <Card doc={item} deleteCard={deleteCard} />
                     ))
                 }
             </div>

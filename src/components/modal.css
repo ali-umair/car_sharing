@@ -1,16 +1,16 @@
-#modal {
+#modal, #filter-form {
   background-color: #e6eaf3;
   color: white;
 }
-#modal > * {
+#modal > *, #filter-form > * {
   margin: 0 0 0.5rem 0;
 }
 
-#modal::-webkit-backdrop {
+#modal,#filter-form::-webkit-backdrop {
   background: rgba(0, 0, 0, 0.4);
 }
 
-#modal::backdrop {
+#modal::backdrop, #filter-form::backdrop {
   /* background: rgba(0, 0, 0, 0.4); */
   background: rgba(0, 0, 0, 0.8);
 }
