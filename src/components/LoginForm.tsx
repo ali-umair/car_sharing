@@ -2,25 +2,28 @@ import { useState } from 'react';
 import TextField from './TextField';
 
 export default function LoginForm(props: any) {
-    const [theme, setTheme] = useState(false);
-    const [stroke, setStroke] = useState("#E11D48");
+    const [isDarkTheme, setisDarkTheme] = useState(window.matchMedia("(prefers-color-scheme: dark)").matches);
+    const [stroke, setStroke] = useState(isDarkTheme ? "#E11D48" : "#E1E7EF");
+    const body: HTMLBodyElement = document.getElementsByTagName("body")[0];
     let svg;
-    function toggleTheme() {
-        const body: HTMLBodyElement = document.getElementsByTagName("body")[0];
+
+    isDarkTheme ? body.classList.add("dark") : body.classList.remove("dark");
+
+    function toggleisDarkTheme() {
         body.classList.toggle("dark");
         if (body.classList.contains("dark")) {
-            setTheme(true);
+            setisDarkTheme(true);
             setStroke("#E1E7EF");
          } else {
-            setTheme(false);
+            setisDarkTheme(false);
             setStroke("#E11D48");
          }
-        console.log(theme);
+        console.log(window.matchMedia("(prefers-color-scheme: dark)").matches);
     }
     return (
         <form className='w-[80%] sm:w-3/5 lg:w-1/2 xl:w-2/5 2xl:w-1/5 h-screen m-auto items-center justify-center rounded flex flex-col' onSubmit={props.submitForm}>
-            <div onClick={toggleTheme} className="absolute top-3 p-2 bg-slate-300 hover:bg-slate-400 dark:bg-neutral-800 dark:hover:bg-neutral-700 shadow rounded-lg flex justify-between items-center">
-                {theme ? (
+            <div onClick={toggleisDarkTheme} className="absolute top-3 p-2 bg-slate-300 hover:bg-slate-400 dark:bg-neutral-800 dark:hover:bg-neutral-700 shadow rounded-lg flex justify-between items-center">
+                {isDarkTheme ? (
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M11 1V3M11 19V21M3 11H1M5.31412 5.31412L3.8999 3.8999M16.6859 5.31412L18.1001 3.8999M5.31412 16.69L3.8999 18.1042M16.6859 16.69L18.1001 18.1042M21 11H19M16 11C16 13.7614 13.7614 16 11 16C8.23858 16 6 13.7614 6 11C6 8.23858 8.23858 6 11 6C13.7614 6 16 8.23858 16 11Z" stroke={stroke} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
