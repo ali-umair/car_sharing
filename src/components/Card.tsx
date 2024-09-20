@@ -1,6 +1,6 @@
 export default function Card(props: any) {
   return (
-    <div className="font-roboto relative" id={props.doc.$id}>
+    <div className="relative" id={props.doc.$id}>
       <button className="w-16 h-5 bg-slate-300 hover:bg-red-500 rounded-b rounded-tr absolute right-1 flex justify-center items-center text-slate-500 hover:text-white font-bold text-xs" onClick={props.deleteCard}>
         <p className="">DELETE</p>
         {/* <button onClick={props.deleteCard} className="close-button text-white">

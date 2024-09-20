@@ -2,28 +2,55 @@ import { useEffect } from "react";
 import FilterForm from "./FilterForm";
 
 export default function Navbar(props: any) {
+  // let stroke: string;
 
   let filterForm: any;
   useEffect(() => {
     filterForm = document.querySelector("#filter-form");
   })
 
-  return (
-    <nav className="w-full sm:w-4/5 p-2 flex justify-between items-center border-b-2 border-slate-300">
-      <h1 className="text-rose-600 text-lg sm:text-xl font-bold leading-tight tracking-tight md:text-2xl">Car Sharing</h1>
+  // props.isDarkTheme ? stroke = "#E1E7EF" : stroke = "#E11D48"
 
-      <div className="buttons">
+  return (
+    <nav className="w-[90%] sticky top-4 z-10 bg-slate-50 dark:bg-neutral-800 px-4 py-2.5 mt-4 flex justify-between items-center rounded-lg shadow-lg">
+      <div className="">
+        <svg width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4.6 12.25H8.2M1 7.25L3.4 8.5L4.92477 3.73509C5.2395 2.75156 5.39686 2.2598 5.68875 1.89623C5.9465 1.57517 6.2775 1.32665 6.65141 1.17347C7.07483 1 7.57246 1 8.56772 1H17.4323C18.4275 1 18.9252 1 19.3486 1.17347C19.7225 1.32665 20.0535 1.57517 20.3113 1.89623C20.6031 2.2598 20.7605 2.75156 21.0752 3.73509L22.6 8.5L25 7.25M17.8 12.25H21.4M6.76 8.5H19.24C21.2562 8.5 22.2643 8.5 23.0344 8.90873C23.7118 9.26825 24.2625 9.84193 24.6076 10.5475C25 11.3497 25 12.3998 25 14.5V17.875C25 18.4558 25 18.7462 24.9539 18.9877C24.7645 19.9795 24.0203 20.7547 23.0682 20.952C22.8364 21 22.5576 21 22 21H21.4C20.0745 21 19 19.8807 19 18.5C19 18.1548 18.7314 17.875 18.4 17.875H7.6C7.26863 17.875 7 18.1548 7 18.5C7 19.8807 5.92548 21 4.6 21H4C3.44241 21 3.16362 21 2.93178 20.952C1.97973 20.7547 1.23549 19.9795 1.04612 18.9877C1 18.7462 1 18.4558 1 17.875V14.5C1 12.3998 1 11.3497 1.39238 10.5475C1.73752 9.84193 2.28825 9.26825 2.96563 8.90873C3.73572 8.5 4.74381 8.5 6.76 8.5Z" stroke={props.stroke} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+
+      <div className="buttons flex gap-5">
         {
-          props.ShowResetBtn && <button id="filter-btn" onClick={() => {props.fetchData([], false)}} className="w-30 px-5 py-2.5 text-center border-l-2 border-red-500">
-            <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Interface / Filter_Off"> <path id="Vector" d="M13 4H18.4C18.9601 4 19.2409 4 19.4548 4.10899C19.6429 4.20487 19.7948 4.35774 19.8906 4.5459C19.9996 4.75981 20 5.04005 20 5.6001V6.3448C20 6.58444 20 6.70551 19.9727 6.81942C19.9482 6.92146 19.9072 7.01893 19.8524 7.1084C19.7906 7.20931 19.7043 7.2958 19.5314 7.46875L18 9.00012M7.49961 4H5.59961C5.03956 4 4.75981 4 4.5459 4.10899C4.35774 4.20487 4.20487 4.35774 4.10899 4.5459C4 4.75981 4 5.04005 4 5.6001V6.33736C4 6.58195 4 6.70433 4.02763 6.81942C4.05213 6.92146 4.09263 7.01893 4.14746 7.1084C4.20928 7.20928 4.29591 7.29591 4.46875 7.46875L9.53149 12.5315C9.70443 12.7044 9.79044 12.7904 9.85228 12.8914C9.90711 12.9808 9.94816 13.0786 9.97266 13.1807C10 13.2946 10 13.4155 10 13.6552V18.411C10 19.2682 10 19.6971 10.1805 19.9552C10.3382 20.1806 10.5814 20.331 10.8535 20.3712C11.1651 20.4172 11.5487 20.2257 12.3154 19.8424L13.1154 19.4424C13.4365 19.2819 13.5966 19.2013 13.7139 19.0815C13.8176 18.9756 13.897 18.8485 13.9453 18.7083C14 18.5499 14 18.37 14 18.011V13.6626C14 13.418 14 13.2958 14.0276 13.1807C14.0521 13.0786 14.0926 12.9809 14.1475 12.8915C14.2091 12.7909 14.2952 12.7048 14.4669 12.5331L14.4688 12.5314L15.5001 11.5001M15.5001 11.5001L5 1M15.5001 11.5001L19 15" stroke="#e11d48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>
+          props.ShowResetBtn && <button id="filter-btn" onClick={() => { props.fetchData([], false) }} className="">
+            <svg width="20" height="30" viewBox="0 0 20 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 17H16M1 11H19M7 23H13" stroke={props.stroke} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M1 1L9 14.8564L17 28.7128" stroke={props.stroke} stroke-width="2" stroke-linecap="round" />
+            </svg>
           </button>
         }
-        <button id="filter-btn" onClick={() => { filterForm.showModal() }} className="w-30 px-5 py-2.5 text-center border-l-2 border-red-500">
-          <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Interface / Filter"> <path id="Vector" d="M20 5.6001C20 5.04005 19.9996 4.75981 19.8906 4.5459C19.7948 4.35774 19.6423 4.20487 19.4542 4.10899C19.2403 4 18.9597 4 18.3996 4H5.59961C5.03956 4 4.75981 4 4.5459 4.10899C4.35774 4.20487 4.20487 4.35774 4.10899 4.5459C4 4.75981 4 5.04005 4 5.6001V6.33736C4 6.58195 4 6.70433 4.02763 6.81942C4.05213 6.92146 4.09263 7.01893 4.14746 7.1084C4.20928 7.20928 4.29591 7.29591 4.46875 7.46875L9.53149 12.5315C9.70443 12.7044 9.79044 12.7904 9.85228 12.8914C9.90711 12.9808 9.94816 13.0786 9.97266 13.1807C10 13.2946 10 13.4155 10 13.6552V18.411C10 19.2682 10 19.6971 10.1805 19.9552C10.3382 20.1806 10.5814 20.331 10.8535 20.3712C11.1651 20.4172 11.5487 20.2257 12.3154 19.8424L13.1154 19.4424C13.4365 19.2819 13.5966 19.2013 13.7139 19.0815C13.8176 18.9756 13.897 18.8485 13.9453 18.7084C14 18.5499 14 18.37 14 18.011V13.6626C14 13.418 14 13.2958 14.0276 13.1807C14.0521 13.0786 14.0926 12.9808 14.1475 12.8914C14.2089 12.7911 14.2947 12.7053 14.4653 12.5347L14.4688 12.5315L19.5315 7.46875C19.7044 7.2958 19.7904 7.20932 19.8523 7.1084C19.9071 7.01893 19.9482 6.92146 19.9727 6.81942C20 6.70551 20 6.58444 20 6.3448V5.6001Z" stroke="#e11d48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>
+        <button id="filter-btn" onClick={() => { filterForm.showModal() }} className="ml-4">
+          <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 7H16M1 1H19M7 13H13" stroke={props.stroke} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
         </button>
-        <button type="submit" onClick={props.logout} className="w-30 px-5 py-2.5 text-center border-l-2 border-r-2 border-red-500">
-          <svg width="24px" height="24px" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="#000000" stroke="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">
-            <g style={{ fill: "none", stroke: "#e11d48", strokeWidth: "12px", strokeLinecap: "round", strokeLinejoin: "round" }}> <path d="m 50,10 0,35"></path> <path d="M 26,20 C -3,48 16,90 51,90 79,90 89,67 89,52 89,37 81,26 74,20"></path> </g> </g></svg>
+        {props.isDarkTheme ? (
+          <button type="submit" onClick={props.toggleisDarkTheme} className="">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11 1V3M11 19V21M3 11H1M5.31412 5.31412L3.8999 3.8999M16.6859 5.31412L18.1001 3.8999M5.31412 16.69L3.8999 18.1042M16.6859 16.69L18.1001 18.1042M21 11H19M16 11C16 13.7614 13.7614 16 11 16C8.23858 16 6 13.7614 6 11C6 8.23858 8.23858 6 11 6C13.7614 6 16 8.23858 16 11Z" stroke={props.stroke} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        ) : (
+          <button type="submit" onClick={props.toggleisDarkTheme} className="">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20.9548 11.9115C19.5779 14.3267 16.9791 15.9552 14 15.9552C9.58172 15.9552 6 12.3734 6 7.95516C6 4.9758 7.62867 2.37683 10.0443 1C4.96975 1.48114 1 5.75444 1 10.9549C1 16.4778 5.47715 20.9549 11 20.9549C16.2002 20.9549 20.4733 16.9856 20.9548 11.9115Z" stroke={props.stroke} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        )
+        }
+        <button type="submit" onClick={props.logout} className="">
+          <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.005 1V11M16.365 5.64C17.6234 6.89879 18.4803 8.50244 18.8273 10.2482C19.1743 11.9939 18.9959 13.8034 18.3146 15.4478C17.6334 17.0921 16.4798 18.4976 14.9998 19.4864C13.5199 20.4752 11.7799 21.0029 10 21.0029C8.2201 21.0029 6.48016 20.4752 5.00018 19.4864C3.5202 18.4976 2.36664 17.0921 1.68537 15.4478C1.00409 13.8034 0.825693 11.9939 1.17272 10.2482C1.51975 8.50244 2.37663 6.89879 3.635 5.64" stroke={props.stroke} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
         </button>
       </div>
 

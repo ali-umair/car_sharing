@@ -14,11 +14,10 @@ export default function LoginForm(props: any) {
         if (body.classList.contains("dark")) {
             setisDarkTheme(true);
             setStroke("#E1E7EF");
-         } else {
+        } else {
             setisDarkTheme(false);
             setStroke("#E11D48");
-         }
-        console.log(window.matchMedia("(prefers-color-scheme: dark)").matches);
+        }
     }
     return (
         <form className='w-[80%] sm:w-3/5 lg:w-1/2 xl:w-2/5 2xl:w-1/5 h-screen m-auto items-center justify-center rounded flex flex-col' onSubmit={props.submitForm}>

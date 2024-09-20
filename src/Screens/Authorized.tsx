@@ -165,10 +165,27 @@ export default function Authorized(props: any) {
             toast.update(tl, { render: error.message, type: "error", isLoading: false, autoClose: 3000, });
         });
     }
+    const [isDarkTheme, setisDarkTheme] = useState(window.matchMedia("(prefers-color-scheme: dark)").matches);
+    const [stroke, setStroke] = useState(isDarkTheme ? "#E11D48" : "#E1E7EF");
+    const body: HTMLBodyElement = document.getElementsByTagName("body")[0];
+    let svg;
+
+    isDarkTheme ? body.classList.add("dark") : body.classList.remove("dark");
+
+    function toggleisDarkTheme() {
+        body.classList.toggle("dark");
+        if (body.classList.contains("dark")) {
+            setisDarkTheme(true);
+            setStroke("#E1E7EF");
+        } else {
+            setisDarkTheme(false);
+            setStroke("#E11D48");
+        }
+    }
 
     return (
         <div className="flex flex-col items-center">
-            <Navbar logout={props.logout} fetchfilteredData={fetchfilteredData} fetchData={fetchData} ShowResetBtn={ShowResetBtn}/>
+            <Navbar logout={props.logout} fetchfilteredData={fetchfilteredData} fetchData={fetchData} ShowResetBtn={ShowResetBtn} toggleisDarkTheme={toggleisDarkTheme} isDarkTheme={isDarkTheme} stroke={stroke} />
             <div className="flex justify-center gap-3 flex-wrap py-7">
                 {/* Using map to generate components iteratively */}
                 {
