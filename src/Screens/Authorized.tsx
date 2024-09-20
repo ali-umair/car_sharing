@@ -186,7 +186,7 @@ export default function Authorized(props: any) {
     return (
         <div className="flex flex-col items-center">
             <Navbar logout={props.logout} fetchfilteredData={fetchfilteredData} fetchData={fetchData} ShowResetBtn={ShowResetBtn} toggleisDarkTheme={toggleisDarkTheme} isDarkTheme={isDarkTheme} stroke={stroke} />
-            <div className="flex justify-center gap-3 flex-wrap py-7">
+            <div className="flex justify-center gap-3 flex-wrap py-5 dark:text-slate-200">
                 {/* Using map to generate components iteratively */}
                 {
                     Data && Data.map((item: any, index: number) => (

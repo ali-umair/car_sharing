@@ -12,7 +12,7 @@ export default function Navbar(props: any) {
   // props.isDarkTheme ? stroke = "#E1E7EF" : stroke = "#E11D48"
 
   return (
-    <nav className="w-[90%] sticky top-4 z-10 bg-slate-50 dark:bg-neutral-800 px-4 py-2.5 mt-4 flex justify-between items-center rounded-lg shadow-lg">
+    <nav className="w-[90%] sticky top-4 z-10 bg-slate-50 dark:bg-neutral-800 px-4 py-2.5 mt-4 flex justify-between items-center rounded-lg shadow-lg dark:shadow-neutral-950">
       <div className="">
         <svg width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M4.6 12.25H8.2M1 7.25L3.4 8.5L4.92477 3.73509C5.2395 2.75156 5.39686 2.2598 5.68875 1.89623C5.9465 1.57517 6.2775 1.32665 6.65141 1.17347C7.07483 1 7.57246 1 8.56772 1H17.4323C18.4275 1 18.9252 1 19.3486 1.17347C19.7225 1.32665 20.0535 1.57517 20.3113 1.89623C20.6031 2.2598 20.7605 2.75156 21.0752 3.73509L22.6 8.5L25 7.25M17.8 12.25H21.4M6.76 8.5H19.24C21.2562 8.5 22.2643 8.5 23.0344 8.90873C23.7118 9.26825 24.2625 9.84193 24.6076 10.5475C25 11.3497 25 12.3998 25 14.5V17.875C25 18.4558 25 18.7462 24.9539 18.9877C24.7645 19.9795 24.0203 20.7547 23.0682 20.952C22.8364 21 22.5576 21 22 21H21.4C20.0745 21 19 19.8807 19 18.5C19 18.1548 18.7314 17.875 18.4 17.875H7.6C7.26863 17.875 7 18.1548 7 18.5C7 19.8807 5.92548 21 4.6 21H4C3.44241 21 3.16362 21 2.93178 20.952C1.97973 20.7547 1.23549 19.9795 1.04612 18.9877C1 18.7462 1 18.4558 1 17.875V14.5C1 12.3998 1 11.3497 1.39238 10.5475C1.73752 9.84193 2.28825 9.26825 2.96563 8.90873C3.73572 8.5 4.74381 8.5 6.76 8.5Z" stroke={props.stroke} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
