@@ -167,14 +167,14 @@ export default function Authorized(props: any) {
     }
     const [isDarkTheme, setisDarkTheme] = useState(window.matchMedia("(prefers-color-scheme: dark)").matches);
     const [stroke, setStroke] = useState(isDarkTheme ? "#E11D48" : "#E1E7EF");
-    const body: HTMLBodyElement = document.getElementsByTagName("body")[0];
+    const htmlElement: HTMLElement = document.getElementsByTagName("html")[0];
     let svg;
 
-    isDarkTheme ? body.classList.add("dark") : body.classList.remove("dark");
+    isDarkTheme ? htmlElement.classList.add("dark") : htmlElement.classList.remove("dark");
 
     function toggleisDarkTheme() {
-        body.classList.toggle("dark");
-        if (body.classList.contains("dark")) {
+        htmlElement.classList.toggle("dark");
+        if (htmlElement.classList.contains("dark")) {
             setisDarkTheme(true);
             setStroke("#E1E7EF");
         } else {
